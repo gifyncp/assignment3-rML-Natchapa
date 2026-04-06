@@ -35,6 +35,20 @@ jupyter notebook
 
 Open Assignment03_rML.ipynb and run all cells sequentially.
 
+Step 3: Run all cells in order:
+- 1: Compute AIR, ME, SMD
+- 2: Perform intersectional analysis
+- 3: Compute FPR, FNR and run z-test
+- 4: Generate visualization
+- 5: Review compliance memo
+
+Step 4: The output will include:
+- Tables of fairness metrics
+- Intersectional results
+- Error rate comparison
+- Visualization chart
+- Final memo
+
 ---
 
 ## 4. Workflow Overview
@@ -60,6 +74,7 @@ From this analysis, I found that:
 This means this group has the lowest chance of receiving a favorable outcome compared to the reference group (Caucasian / Male).
 
 ### 3. Error Rate Analysis (FPR, FNR)
+
 I calculated:
 - False Positive Rate (FPR)
 - False Negative Rate (FNR)
@@ -69,15 +84,18 @@ I found that:
 This suggests they are more likely to be incorrectly classified as high risk.
 
 ### 4. Statistical Test (z-test)
+
 I used a two-proportion z-test to compare African-American and Caucasian groups.
 
 The result shows the difference is statistically significant (p < 0.05), meaning the disparity is not due to random chance.
 
 ### 5. Visualization
+
 I created a bar chart showing FPR and FNR by race, with a baseline line for the Caucasian group.
 This makes it easier to compare disparities visually.
 
 ---
+
 ## Key Takeaways
 
 Some groups have AIR below 0.80, indicating potential bias
@@ -88,12 +106,6 @@ Limitations
 The COMPAS dataset may contain historical bias
 Different fairness metrics may give different conclusions
 Small groups may affect stability of results
-
----
-
-## Notes
-I attempted to use the solas-ai library, but it was not compatible in my environment.
-So I computed all fairness metrics manually using standard formulas.
 
 ---
 
