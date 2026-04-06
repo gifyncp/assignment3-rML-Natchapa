@@ -1,6 +1,4 @@
-# Explaining the COMPAS Replacement Model
-
-A reproducible analysis of a COMPAS-based risk prediction model using SHAP, LIME, and counterfactual explanations to evaluate transparency, fairness, and governance implications.
+# Disparate Impact Audit – COMPAS Dataset
 
 **Name:** Natchapa Aunkay (Gift)  
 **Course:** DNSC 6330 – Responsible Machine Learning  
@@ -11,88 +9,91 @@ A reproducible analysis of a COMPAS-based risk prediction model using SHAP, LIME
 
 ## 1. Purpose of the Analysis
 
-This project focuses on explaining the behavior of a machine learning model trained on the COMPAS dataset. Instead of only evaluating model performance, the goal is to understand how and why the model makes predictions.
-
-The analysis applies three explanation techniques:
-
-SHAP (global and local explanations)
-LIME (local explanations)
-Counterfactual explanations using DiCE
-The objective is to compare these methods and assess their implications for fairness, transparency, and model governance.
+In this assignment, I evaluate fairness in a predictive model using the COMPAS dataset. The goal is to check whether the model shows any bias across different demographic groups, especially race and sex.
 
 ---
-
 # 2. Python Libraries Used
 
 The following libraries are used:
 
-pandas
-numpy
-matplotlib
-scikit-learn
-shap
-lime
-dice-ml
+- pandas — for data manipulation and grouping
+- numpy — for numerical calculations
+- matplotlib — for visualization (bar charts)
+- scipy — for basic statistical functions
+- statsmodels — for statistical testing (two-proportion z-test)
 
 ---
-
 ## 3. Instructions for Reproducing the Results
 
 Step 1: Clone the repository
 
-git clone https://github.com/gifyncp/assignment2-rML-Natchapa.git cd assignment2-rML-Natchapa
+git clone https://github.com/gifyncp/assignment3-rML-Natchapa.git cd assignment3-rML-Natchapa
 
 Step 2: Run the notebook
 
 jupyter notebook
 
-Open Assignment02_rML.ipynb and run all cells sequentially.
+Open Assignment03_rML.ipynb and run all cells sequentially.
 
 ---
 
 ## 4. Workflow Overview
 
-### Step 1: SHAP Analysis
+### 1. Disparity Metrics (AIR, ME, SMD)
 
-Compute SHAP values on the test dataset
-Generate a beeswarm summary plot
-Create waterfall plots for:
-Highest-risk defendant (per racial group)
-Lowest-risk defendant (per racial group)
+I computed:
+- AIR (Adverse Impact Ratio)
+- ME (Mean Error)
+- SMD (Standardized Mean Difference)
+for both race and sex using Caucasian and Male as reference groups.
 
-### Step 2: LIME Explanations
+These metrics help me understand differences in selection rates and score distributions across groups.
 
-Apply LIME to the same selected individuals
-Compare feature attributions between SHAP and LIME
-Identify agreements and divergences in explanations
+### 2. Intersectional Analysis (race × sex)
 
-### Step 3: Counterfactual Explanations
+I created subgroups by combining race and sex (e.g., Hispanic / Female).
+I filtered out small groups (n < 30) to keep results reliable.
 
-Generate counterfactuals using DiCE
-Identify minimal feature changes required to flip predictions
-Highlight any changes involving immutable features (e.g., race, sex)
+From this analysis, I found that:
 
-### Step 4: Governance Interpretation
+- Hispanic females had the lowest AIR (~0.154)
+This means this group has the lowest chance of receiving a favorable outcome compared to the reference group (Caucasian / Male).
 
-Analyze what explanation results reveal about model behavior
-Discuss risks such as proxy variables and fairness concerns
-Provide recommendations for monitoring and governance
+### 3. Error Rate Analysis (FPR, FNR)
+I calculated:
+- False Positive Rate (FPR)
+- False Negative Rate (FNR)
+by race.
+I found that:
+- African-American individuals have higher FPR than Caucasians
+This suggests they are more likely to be incorrectly classified as high risk.
+
+### 4. Statistical Test (z-test)
+I used a two-proportion z-test to compare African-American and Caucasian groups.
+
+The result shows the difference is statistically significant (p < 0.05), meaning the disparity is not due to random chance.
+
+### 5. Visualization
+I created a bar chart showing FPR and FNR by race, with a baseline line for the Caucasian group.
+This makes it easier to compare disparities visually.
+
+---
+## Key Takeaways
+
+Some groups have AIR below 0.80, indicating potential bias
+Hispanic females are the most disadvantaged subgroup
+African-American individuals have higher false positive rates
+Disparities are statistically significant
+Limitations
+The COMPAS dataset may contain historical bias
+Different fairness metrics may give different conclusions
+Small groups may affect stability of results
 
 ---
 
-## 5. Reproducibility and Documentation
-
-The notebook is fully reproducible
-Each step includes comments explaining the methodology
-The workflow follows the structure required in the assignment
-
----
-
-## 6. Notes
-
-SHAP, LIME, and counterfactual methods may produce different explanations
-Differences arise from methodological assumptions and approximations
-No single explanation method is sufficient on its own
+## Notes
+I attempted to use the solas-ai library, but it was not compatible in my environment.
+So I computed all fairness metrics manually using standard formulas.
 
 ---
 
