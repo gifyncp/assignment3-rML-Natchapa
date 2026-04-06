@@ -12,7 +12,7 @@
 In this assignment, I evaluate fairness in a predictive model using the COMPAS dataset. The goal is to check whether the model shows any bias across different demographic groups, especially race and sex.
 
 ---
-# 2. Python Libraries Used
+## 2. Python Libraries Used
 
 The following libraries are used:
 
